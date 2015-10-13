@@ -31,5 +31,9 @@ public class Sentence {
 	public String getSentence() {
 		return sentence;
 	}
+	
+	public String toString() {
+		return sentence + "\t" + tokens;
+	}
 
 }

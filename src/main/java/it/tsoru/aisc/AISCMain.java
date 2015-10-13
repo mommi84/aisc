@@ -17,11 +17,12 @@ import java.util.TreeSet;
  */
 public class AISCMain {
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		
 		Stopwords.load();
 		
-		Dl4j.loadCorpus();
+		Dl4j.loadAll();
+//		Dl4j.loadVectors();
 		
 		Questions qs = new Questions("datasets/training_set.tsv");
 		qs.load();
@@ -49,11 +50,12 @@ public class AISCMain {
 			ans.put("B", bSent);
 			ans.put("C", cSent);
 			ans.put("D", dSent);
-			
+						
 			double high = Double.MIN_VALUE;
 			String best = "N/A";
 			for(String k : ans.keySet()) {
 				Sentence s = ans.get(k);
+				System.out.println(s.getTokens());
 				double score = 0.0;
 				int tot = 0;
 				for(String qToken : qSent.getTokens()) {
@@ -90,7 +92,7 @@ public class AISCMain {
 	}
 
 	private static TreeSet<String> getWords(String sentence) {
-		String[] qTokens = sentence.split(" ");
+		String[] qTokens = sentence.toLowerCase().split(" ");
 		TreeSet<String> words = new TreeSet<String>();
 		for(String t : qTokens)
 			if(!Stopwords.isPresent(t))
