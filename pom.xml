@@ -7,8 +7,8 @@
 	<name>AISC</name>
 	<description>AISC</description>
 	<properties>
-		<nd4j.version>0.4-rc3.4</nd4j.version>
-		<dl4j.version>0.4-rc3.3</dl4j.version>
+		<nd4j.version>0.4-rc3.5</nd4j.version>
+		<dl4j.version>0.4-rc3.4</dl4j.version>
 	</properties>
 	<build>
 		<plugins>

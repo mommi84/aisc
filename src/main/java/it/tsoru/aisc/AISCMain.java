@@ -6,6 +6,7 @@ import it.tsoru.aisc.io.Stopwords;
 import it.tsoru.aisc.model.Sentence;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -19,16 +20,89 @@ public class AISCMain {
 	
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		
+		String filepath;
+		if(args.length != 1)
+			filepath = "datasets/training_set.tsv";
+		else
+			filepath = args[0];
+		
 		Stopwords.load();
 		
 		Dl4j.loadAll();
 //		Dl4j.loadVectors();
 		
-		Questions qs = new Questions("datasets/training_set.tsv");
+		Questions qs = new Questions(filepath);
 		qs.load();
+				
+//		evaluation(qs);
+		validation(qs);
+		
+		Dl4j.saveVectors();
+		
+	}
+
+	private static void validation(Questions qs) throws FileNotFoundException, IOException {
+		
+		PrintWriter pw = new PrintWriter(new File("predictions.csv"));
+		pw.write("id,correctAnswer");
+		
+		for(int i=1; qs.hasNext(); i++) {
+			
+			String[] q = qs.next();
+			String id = q[0], question = alphanum(q[1]);
+			String aA = alphanum(q[2]), aB = alphanum(q[3]), aC = alphanum(q[4]), aD = alphanum(q[5]);
+			System.out.println("\n" + id + ". " + question);
+			
+			// tentative
+			Sentence qSent = new Sentence(question, getWords(question));
+			Sentence aSent = new Sentence(aA, getWords(aA));
+			Sentence bSent = new Sentence(aB, getWords(aB));
+			Sentence cSent = new Sentence(aC, getWords(aC));
+			Sentence dSent = new Sentence(aD, getWords(aD));
+			HashMap<String, Sentence> ans = new HashMap<String, Sentence>();
+			ans.put("A", aSent);
+			ans.put("B", bSent);
+			ans.put("C", cSent);
+			ans.put("D", dSent);
+						
+			double high = Double.MIN_VALUE;
+			String best = "N/A";
+			for(String k : ans.keySet()) {
+				Sentence s = ans.get(k);
+				System.out.println(s.getTokens());
+				double score = 0.0;
+				int tot = 0;
+				for(String qToken : qSent.getTokens()) {
+					for(String aToken : s.getTokens()) {
+						double d = Dl4j.sim(qToken, aToken);
+						System.out.println("sim("+qToken+", "+aToken+") = "+d);
+						score += d;
+						tot ++;
+					}
+				}
+				score /= tot;
+				System.out.println("totSim(q, "+k+") = "+score);
+				if(score > high) {
+					high = score;
+					best = k;
+				}
+			}
+			System.out.println("best = "+best);
+			
+			System.out.println("processed = "+i);
+			
+			pw.write("\n"+id+","+best);
+
+		}
+		
+		pw.close();
+	}
+
+	@SuppressWarnings("unused")
+	private static void evaluation(Questions qs) throws IOException {
 		
 		int corrPred = 0;
-		
+
 		PrintWriter pw = new PrintWriter(new File("predictions.csv"));
 		pw.write("id,correctAnswer");
 		
@@ -84,7 +158,6 @@ public class AISCMain {
 		}
 		
 		pw.close();
-		
 	}
 
 	private static String alphanum(String string) {

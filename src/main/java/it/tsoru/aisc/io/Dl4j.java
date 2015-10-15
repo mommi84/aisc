@@ -5,7 +5,6 @@ import it.tsoru.aisc.util.DataIO;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
@@ -24,7 +23,7 @@ public class Dl4j {
 	private static Word2Vec vec;
 
 	public static double sim(String a, String b) throws FileNotFoundException, IOException {
-		// return Math.random();
+//		 return Math.random();
 
 		double[] vecA, vecB;
 
@@ -37,7 +36,7 @@ public class Dl4j {
 			vectors.put(a, vecA);
 			// once in CACHE_INTERVAL new words...
 			if(vectors.size() % CACHE_INTERVAL == 0)
-				DataIO.serialize(vectors, "vectors.map");
+				saveVectors();
 		}
 
 		if (vectors.containsKey(b))
@@ -49,10 +48,14 @@ public class Dl4j {
 			vectors.put(b, vecB);
 			// once in CACHE_INTERVAL new words...
 			if(vectors.size() % CACHE_INTERVAL == 0)
-				DataIO.serialize(vectors, "vectors.map");
+				saveVectors();
 		}
-		
+				
 		return cosine(vecA, vecB);
+	}
+	
+	public static void saveVectors() throws FileNotFoundException, IOException {
+		DataIO.serialize(vectors, "vectors.map");
 	}
 
 	@SuppressWarnings("unused")
