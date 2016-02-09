@@ -18,6 +18,7 @@ public class Test {
 	public static void main(String[] args) throws ClassNotFoundException, IOException {
 		
 		Dl4j.loadAll();
+//		Dl4j.loadVectors();
 				
 		String input = null;
 		while(!(input = readInput()).equals("")) {

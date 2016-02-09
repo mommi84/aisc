@@ -54,22 +54,5 @@
 			<artifactId>deeplearning4j-nlp</artifactId>
 			<version>${dl4j.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.nd4j</groupId>
-			<artifactId>nd4j-jblas</artifactId>
-			<version>${nd4j.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>edu.stanford.nlp</groupId>
-			<artifactId>stanford-parser</artifactId>
-			<version>3.5.2</version>
-			<classifier>models</classifier>
-		</dependency>
-		<dependency>
-			<groupId>edu.stanford.nlp</groupId>
-			<artifactId>stanford-parser</artifactId>
-			<version>3.5.2</version>
-		</dependency>
 	</dependencies>
 </project>
