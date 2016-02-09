@@ -51,5 +51,16 @@
 			<version>${nd4j.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-parser</artifactId>
+			<version>3.5.2</version>
+			<classifier>models</classifier>
+		</dependency>
+		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-parser</artifactId>
+			<version>3.5.2</version>
+		</dependency>
 	</dependencies>
 </project>

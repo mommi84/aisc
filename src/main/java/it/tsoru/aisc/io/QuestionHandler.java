@@ -1,5 +1,8 @@
 package it.tsoru.aisc.io;
 
+import it.tsoru.aisc.model.Question;
+import it.tsoru.aisc.tokens.Tokenizer;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,15 +14,18 @@ import com.opencsv.CSVReader;
  * @author Tommaso Soru <tsoru@informatik.uni-leipzig.de>
  *
  */
-public class Questions {
+public class QuestionHandler {
 	
 	private String dataset;
+	private Tokenizer tokenizer;
+	private boolean isTraining;
 	
 	private CSVReader reader = null;
 	private String[] next = null;
 	
-	public Questions(String dataset) {
+	public QuestionHandler(String dataset, Tokenizer tokenizer, boolean isTraining) {
 		this.dataset = dataset;
+		this.tokenizer = tokenizer;
 	}
 	
 	public void load() throws IOException {
@@ -33,13 +39,13 @@ public class Questions {
 		return next != null;
 	}
 	
-	public String[] next() throws IOException {
+	public Question next() throws IOException {
 		if(next == null) {
-			return reader.readNext();
+			return new Question(reader.readNext(), tokenizer, isTraining);
 		} else {
 			String[] temp = Arrays.copyOf(next, next.length);
 			next = null;
-			return temp;
+			return new Question(temp, tokenizer, isTraining);
 		}
 	}
 

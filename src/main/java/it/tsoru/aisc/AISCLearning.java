@@ -18,7 +18,7 @@ public class AISCLearning {
 		// FIXME log files are corrupted!
 		
 		// index similarities...
-		Scanner in = new Scanner(new File("experiments/sim_training.txt"));
+		Scanner in = new Scanner(new File("experiments/sim_training_.txt"));
 		while(in.hasNextLine()) {
 			String l = in.nextLine().substring(4);
 			String[] line = l.split("\\) = ");
@@ -27,7 +27,9 @@ public class AISCLearning {
 		}
 		in.close();
 		
-		System.out.println(sim.size());
+		System.out.println(sim.size() + " similarities loaded.");
+		
+		System.out.println(getSim("epidemic", "symptoms"));
 		
 		// split training set in 90/10
 		
