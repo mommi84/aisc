@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.tsoru.aisc</groupId>
 	<artifactId>tsoru-aisc</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>AISC</name>
 	<description>AISC</description>
 	<properties>
@@ -18,7 +18,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>it.tsoru.aisc.AISCMain</mainClass>
+							<mainClass>it.tsoru.aisc.Test</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>

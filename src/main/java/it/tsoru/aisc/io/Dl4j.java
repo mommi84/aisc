@@ -54,6 +54,10 @@ public class Dl4j {
 		return cosine(vecA, vecB);
 	}
 	
+	public static double[] getVector(String a) {
+		return vec.getWordVector(a);
+	}
+	
 	public static void saveVectors() throws FileNotFoundException, IOException {
 		DataIO.serialize(vectors, "vectors.map");
 	}
@@ -82,16 +86,23 @@ public class Dl4j {
 	
 	public static void loadAll() throws IOException, ClassNotFoundException {
 		loadCorpus();
-		loadVectors();
+//		loadVectors();
 	}
 
 	public static void loadVectors() throws ClassNotFoundException, IOException {
+		
+//		if(!new File("vectors.map").exists())
+//			throw new IOException("File do");
+		
 		try {
 			vectors = DataIO.readMap("vectors.map");
 			System.out.println("vectors.map loaded");
 		} catch (FileNotFoundException e) {
 			System.out.println("vectors.map not found, skipping...");
 		}
+		
+		for(String s : vectors.keySet())
+			System.out.println(s + "\t" + vectors.get(s));
 	}
 
 	public static void loadCorpus() throws IOException {
