@@ -70,7 +70,7 @@ public class Dl4j {
 		return v;
 	}
 
-	private static double cosine(double[] a, double[] b) {
+	public static double cosine(double[] a, double[] b) {
 		
 		double sum = 0.0, denA = 0.0, denB = 0.0;
 		for (int i = 0; i < a.length; i++) {
@@ -79,7 +79,7 @@ public class Dl4j {
 			denB += b[i] * b[i];
 		}
 		
-		System.out.println("cosine calculated");
+//		System.out.println("cosine calculated");
 		
 		return sum / (Math.sqrt(denA) * Math.sqrt(denB));
 	}
