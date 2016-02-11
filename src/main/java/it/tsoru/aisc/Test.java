@@ -20,9 +20,8 @@ public class Test {
 		Dl4j.loadAll();
 //		Dl4j.loadVectors();
 		
-		System.out.println("Saving veectors...");
+		System.out.println("Saving vectors...");
 		Dl4j.saveVectors();
-		System.out.println("Done.");
 		
 		String input = null;
 		while(!(input = readInput()).equals("")) {

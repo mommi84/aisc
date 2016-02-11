@@ -36,7 +36,7 @@ public class Dl4j {
 			vectors.put(a, vecA);
 			// once in CACHE_INTERVAL new words...
 			if(vectors.size() % CACHE_INTERVAL == 0)
-				saveVectors();
+				saveMap();
 		}
 
 		if (vectors.containsKey(b))
@@ -48,7 +48,7 @@ public class Dl4j {
 			vectors.put(b, vecB);
 			// once in CACHE_INTERVAL new words...
 			if(vectors.size() % CACHE_INTERVAL == 0)
-				saveVectors();
+				saveMap();
 		}
 				
 		return cosine(vecA, vecB);
@@ -58,9 +58,13 @@ public class Dl4j {
 		return vec.getWordVector(a);
 	}
 	
-	public static void saveVectors() throws FileNotFoundException, IOException {
+	public static void saveMap() throws FileNotFoundException, IOException {
+		DataIO.serialize(vectors, "vectors.map");
+		
+	}
+	
+	public static void saveVectors() throws IOException {
 		WordVectorSerializer.writeWordVectors(vec, "words.txt");
-//		DataIO.serialize(vectors, "vectors.map");
 	}
 
 	@SuppressWarnings("unused")
