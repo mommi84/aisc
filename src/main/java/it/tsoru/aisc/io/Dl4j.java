@@ -59,7 +59,8 @@ public class Dl4j {
 	}
 	
 	public static void saveVectors() throws FileNotFoundException, IOException {
-		DataIO.serialize(vectors, "vectors.map");
+		WordVectorSerializer.writeWordVectors(vec, "words.txt");
+//		DataIO.serialize(vectors, "vectors.map");
 	}
 
 	@SuppressWarnings("unused")
